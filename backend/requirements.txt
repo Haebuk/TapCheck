@@ -1,0 +1,8 @@
+fastapi
+sqlalchemy
+uvicorn
+pydantic
+PyMySQL
+mysqlclient
+qrcode==7.4.2
+Pillow==9.5.0

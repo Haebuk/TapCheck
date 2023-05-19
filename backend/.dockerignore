@@ -1,0 +1,4 @@
+requirements-dev.txt
+.vscode/settings.json
+**/*.pyc
+venv/
