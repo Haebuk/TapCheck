@@ -7,9 +7,8 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
+        <h1>TapCheck</h1>
         <ConnectButton />
-        <button onClick={() => {}}>Click</button>
       </header>
       <Toaster />
     </div>
