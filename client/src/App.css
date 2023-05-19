@@ -1,5 +1,15 @@
 .App {
   text-align: center;
+  background-image: url(./images/background.png);
+  /* background-repeat: round; */
+  background-size: cover;
+}
+
+.background-building {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100vw;
 }
 
 .App-logo {
@@ -13,14 +23,8 @@
   }
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+.App * {
+  font-family: "Bebas Neue", sans-serif;
   color: white;
 }
 

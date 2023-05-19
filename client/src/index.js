@@ -13,6 +13,7 @@ import { avalanche, avalancheFuji, mainnet } from "wagmi/chains";
 
 import { publicProvider } from "wagmi/providers/public";
 import { infuraProvider } from "wagmi/providers/infura";
+import { BrowserRouter } from "react-router-dom";
 
 const { chains, provider } = configureChains(
   [avalanche, avalancheFuji],
@@ -51,11 +52,13 @@ const config = createConfig({
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <WagmiConfig config={config}>
-      <RainbowKitProvider chains={chains}>
-        <App />
-      </RainbowKitProvider>
-    </WagmiConfig>
+    <BrowserRouter>
+      <WagmiConfig config={config}>
+        <RainbowKitProvider chains={chains}>
+          <App />
+        </RainbowKitProvider>
+      </WagmiConfig>
+    </BrowserRouter>
   </React.StrictMode>
 );
 
