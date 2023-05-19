@@ -27,6 +27,7 @@ const SectionFirstStyle = styled.div`
     opacity: 50%;
     background-blend-mode: saturation;
     filter: blur(3px);
+    z-index: 1;
   }
   .building-image {
     width: 2000px;
@@ -34,7 +35,8 @@ const SectionFirstStyle = styled.div`
     bottom: -7rem;
     left: 50%;
     transform: translateX(-50%);
-    opacity: 80%;
+    opacity: 60%;
+    z-index: 1;
   }
   .logo {
     position: absolute;
@@ -45,10 +47,11 @@ const SectionFirstStyle = styled.div`
     width: 65vw;
   }
   .blur {
+    z-index: 2;
     position: absolute;
     bottom: 0rem;
     height: 4rem;
     width: 100vw;
-    background: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.5));
+    background: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.3));
   }
 `;

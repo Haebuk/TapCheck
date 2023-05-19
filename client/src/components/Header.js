@@ -17,7 +17,6 @@ const HeaderStyle = styled.div`
   top: 0;
   height: 7rem;
   width: 100vw;
-  /* background-color: yellow; */
   display: flex;
   justify-content: flex-start;
   z-index: 100;
@@ -29,6 +28,7 @@ const HeaderStyle = styled.div`
     padding: 0 0 0 3rem;
   }
   button {
+    cursor: pointer;
     background-color: transparent;
     border: none;
     font-size: 2rem;

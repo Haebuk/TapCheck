@@ -19,17 +19,19 @@ const SectionSecondStyle = styled.div`
     opacity: 30%;
   }
   .blur-upper {
+    z-index: 2;
     position: absolute;
     top: 0rem;
     height: 4rem;
     width: 100vw;
-    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0));
+    background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0));
   }
   .blur-lower {
+    z-index: 2;
     position: absolute;
     bottom: 0rem;
     height: 4rem;
     width: 100vw;
-    background: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.5));
+    background: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.3));
   }
 `;
