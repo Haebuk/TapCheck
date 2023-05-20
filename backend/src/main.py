@@ -91,7 +91,7 @@ async def create_event(event: Event):
             detail="Event not created",
         )
 
-    return {"StatusCode": 201, "message": "Event created"}
+    return {"StatusCode": 201, "message": "Event created", "event": res}
 
 
 # get event details
