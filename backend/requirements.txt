@@ -6,5 +6,6 @@ PyMySQL
 boto3
 mysqlclient
 web3
+py-solc-x
 qrcode==7.4.2
 Pillow==9.5.0
