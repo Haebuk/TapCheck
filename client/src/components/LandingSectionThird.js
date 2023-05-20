@@ -20,7 +20,7 @@ export const LandingSectionThird = () => {
           <p>PARTICIPATE IN THE EVENT</p>
         </div>
         <div className="event-wrapper">
-          {eventList.map((map, idx) => (
+          {eventList?.map((map, idx) => (
             <EventUnit key={idx} data={map} />
           ))}
         </div>
