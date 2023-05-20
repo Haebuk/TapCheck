@@ -3,6 +3,7 @@ from fastapi import FastAPI, status, HTTPException
 from src.db import api
 from src.utils import utils, qr
 from src.utils.model import User, Event, Favorite, UserParticipation, PreRegistration
+from src.contracts.checkin import checkin
 
 app = FastAPI()
 
@@ -91,6 +92,21 @@ async def create_event(event: Event):
         )
 
     return {"StatusCode": 201, "message": "Event created"}
+
+
+@app.post("/event/{event_id}/checkin/{code}")
+async def checkin_event(event_id: int, code: str, user: User):
+    current_event_code = api.get_event(event_id).code
+    if current_event_code != code:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="Invalid code",
+        )
+
+    user_wallet_address = user.wallet
+    # checkin event
+    res = checkin(user_wallet_address, event_id)
+    return res
 
 
 # refresh an event
