@@ -13,6 +13,7 @@ class Event(BaseModel):
     created_user_id: int
     title: str
     opening_time: str
+    addr: str
     thumbnail: str | None = None
     location: str | None = None
     is_special: bool = False
@@ -39,4 +40,3 @@ class PreRegistration(BaseModel):
     user_id: int
     event_id: int
     create_at: datetime
-

@@ -22,4 +22,12 @@ contract TapCheck is ERC2771Context {
         last = _msgSender();
         emit checkInEvent(last, "success!");
     }
+
+    function getWalletList() public view returns (address[] memory) {
+        return walletAddresses;
+    }
+
+    function isCheckIn(address _walletAddress) public view returns (bool) {
+        return isAuthorized[_walletAddress];
+    }
 }
