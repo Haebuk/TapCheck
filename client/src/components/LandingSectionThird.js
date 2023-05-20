@@ -1,8 +1,16 @@
 import styled from "styled-components";
 import { ReactComponent as Dot } from "../images/dot.svg";
 import { EventUnit } from "./EventUnit";
+import axios from "axios";
+import { useEffect, useState } from "react";
 
 export const LandingSectionThird = () => {
+  const [eventList, setEventList] = useState([]);
+
+  useEffect(() => {
+    axios.get(`${process.env.REACT_APP_API_URL}/event/list`).then((res) => setEventList(res.data.events));
+  }, []);
+
   return (
     <SectionThirdStyle>
       <div className="blur-upper"></div>
@@ -12,9 +20,9 @@ export const LandingSectionThird = () => {
           <p>PARTICIPATE IN THE EVENT</p>
         </div>
         <div className="event-wrapper">
-          <EventUnit />
-          <EventUnit />
-          <EventUnit />
+          {eventList.map((map, idx) => (
+            <EventUnit key={idx} data={map} />
+          ))}
         </div>
       </div>
     </SectionThirdStyle>

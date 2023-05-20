@@ -1,17 +1,16 @@
 import styled from "styled-components";
 import { ConnectButton, darkTheme } from "@rainbow-me/rainbowkit";
+import "@rainbow-me/rainbowkit/styles.css";
 
 export const Header = () => {
   return (
     <HeaderStyle>
-      <ConnectButton className="connect-button" />
       <div className="button-wrapper">
         <button>HOME</button>
         <button>ABOUT US</button>
         <button>SERVICE</button>
       </div>
       <ConnectButton className="connect-button" />
-      {/* <ConnectButton className="connect-button" chainStatus="none" /> */}
     </HeaderStyle>
   );
 };
@@ -31,11 +30,6 @@ const HeaderStyle = styled.div`
     display: flex;
     justify-content: flex-start;
     align-items: center;
-  }
-  .connect-button {
-    div * {
-      font-size: 10rem !important;
-    }
   }
   button {
     cursor: pointer;
