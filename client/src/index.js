@@ -6,7 +6,8 @@ import reportWebVitals from "./reportWebVitals";
 
 import "@rainbow-me/rainbowkit/styles.css";
 
-import { getDefaultWallets, RainbowKitProvider } from "@rainbow-me/rainbowkit";
+import { getDefaultWallets, RainbowKitProvider, darkTheme, connectorsForWallets } from "@rainbow-me/rainbowkit";
+import { injectedWallet, metaMaskWallet, rainbowWallet, walletConnectWallet, trustWallet } from "@rainbow-me/rainbowkit/wallets";
 import { configureChains, createConfig, WagmiConfig } from "wagmi";
 import { createPublicClient, http } from "viem";
 import { avalanche, avalancheFuji, mainnet } from "wagmi/chains";
@@ -26,11 +27,32 @@ const { chains, provider } = configureChains(
   ]
 );
 
-const { connectors } = getDefaultWallets({
-  appName: "UR",
-  projectId: "5dea92e0ca764ce4a7bee86f431281b2",
-  chains,
+// const { connectors } = getDefaultWallets({
+//   appName: "UR",
+//   projectId: "5dea92e0ca764ce4a7bee86f431281b2",
+//   chains,
+// });
+
+const connectors = connectorsForWallets([
+  {
+    groupName: "tapCheck",
+    wallets: [
+      injectedWallet({ chains }),
+      metaMaskWallet({ projectId: "db4d39a0869ab9ff9d0ccf4f78275da1", chains }),
+      trustWallet({ projectId: "db4d39a0869ab9ff9d0ccf4f78275da1", chains }),
+      rainbowWallet({ projectId: "db4d39a0869ab9ff9d0ccf4f78275da1", chains }),
+      walletConnectWallet({ projectId: "db4d39a0869ab9ff9d0ccf4f78275da1", chains }),
+    ],
+  },
+]);
+
+const injected = injectedWallet({
+  options: {
+    chains,
+  },
 });
+
+console.log(injected);
 
 const config = createConfig({
   autoConnect: true,
@@ -54,7 +76,13 @@ root.render(
   <React.StrictMode>
     <BrowserRouter>
       <WagmiConfig config={config}>
-        <RainbowKitProvider chains={chains}>
+        <RainbowKitProvider
+          chains={chains}
+          theme={darkTheme({
+            accentColor: "#EF5CD8",
+          })}
+          showRecentTransactions={true}
+        >
           <App />
         </RainbowKitProvider>
       </WagmiConfig>
