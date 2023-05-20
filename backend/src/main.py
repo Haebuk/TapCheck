@@ -2,7 +2,7 @@ from fastapi import FastAPI, status, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 
 from src.db import api
-from src.utils import utils, qr
+from src.utils import nft, utils, qr
 from src.utils.model import User, Event, Favorite, UserParticipation, PreRegistration
 from src.contracts.checkin import checkin
 
@@ -48,6 +48,15 @@ async def read_user(user_id: int):
         )
 
     return {"user": user}
+
+
+# check nft holder
+@app.get("/user/nft/{user_id}/{nft_contract_addr}", status_code=status.HTTP_200_OK)
+async def check_nft_holder(user_id: int, nft_contract_addr: str):
+    user_wallet_addr = api.read_user(user_id).wallet
+    nft_owners = nft.get_nft_owners(nft_contract_addr)
+    is_owner = nft.is_nft_owner(nft_owners, user_wallet_addr)
+    return {"is_owner": is_owner}
 
 
 # delete user
