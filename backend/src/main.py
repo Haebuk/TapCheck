@@ -29,7 +29,7 @@ async def create_user(user: User):
 
 
 # get user
-@app.get("/user/{user_id}", status_code=status.HTTP_200_OK)
+@app.get("/user/{user_id:int}", status_code=status.HTTP_200_OK)
 async def read_user(user_id: int):
     user = api.read_user(user_id)
 
@@ -43,7 +43,7 @@ async def read_user(user_id: int):
 
 
 # delete user
-@app.delete("/user/{user_id}")
+@app.delete("/user/{user_id:int}")
 async def delete_user(user_id: int):
     res = api.delete_user(user_id)
 
@@ -95,7 +95,7 @@ async def create_event(event: Event):
 
 
 # get event details
-@app.get("/event/{event_id}", status_code=status.HTTP_200_OK)
+@app.get("/event/{event_id:int}", status_code=status.HTTP_200_OK)
 async def read_event(event_id: int):
     event = api.get_event(event_id)
 
@@ -106,6 +106,20 @@ async def read_event(event_id: int):
         )
 
     return {"event": event}
+
+
+# delete event
+@app.delete("/event/{event_id}")
+async def delete_event(event_id: int):
+    res = api.delete_event(event_id)
+
+    if not res:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="Event not deleted",
+        )
+
+    return {"StatusCode": 201, "message": "Event deleted"}
 
 
 # get latest event QR code

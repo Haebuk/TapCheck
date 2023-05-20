@@ -35,7 +35,7 @@ def read_user(user_id: int):
 # read user list from users
 def read_user_list():
     users = session.query(schema.User).all()
-    print(users)
+
     return users
 
 
@@ -83,6 +83,25 @@ def create_event(event: Event):
 def get_event(event_id):
     event = session.query(schema.Event).filter(schema.Event.id == event_id).first()
     return event
+
+
+# delete event by id
+def delete_event(event_id):
+    try:
+        event = session.query(schema.Event).filter(schema.Event.id == event_id).first()
+        if event:
+            session.delete(event)
+            session.commit()
+            return event
+        else:
+            return None
+    except SQLAlchemyError as e:
+        # SQLAlchemyError 예외 처리
+        session.rollback()  # 롤백 수행
+        print("SQLAlchemy 에러 발생:", str(e))
+        # 추가적인 에러 처리 로직 수행
+
+    return None
 
 
 # get events
