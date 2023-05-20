@@ -110,9 +110,25 @@ async def checkin_event(event_id: int, code: str, user: User):
 
 
 # refresh an event
-@app.post("/event/refresh")
-async def refresh_event():
+@app.post("/event/{event_id}/refresh")
+async def refresh_event(event_id: int):
     # refresh event
+    new_code = utils.generate_random_string()
+    res = api.refresh_event(event_id, new_code)
+    if not res:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="Event not refreshed",
+        )
+
+    qr_url = qr.generate_qr(event_id=event_id, code=new_code)
+
+    if not qr_url:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="Generate QR failed",
+        )
+
     return {"StatusCode": 201, "message": "Event refreshed"}
 
 

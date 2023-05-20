@@ -82,3 +82,16 @@ def get_event(event_id):
 def get_events():
     events = session.query(schema.Event).all()
     return events
+
+
+# refresh event code
+def refresh_event(event_id: int, code: str):
+    try:
+        event = session.query(schema.Event).filter(schema.Event.id == event_id).first()
+        event.code = code
+        session.commit()
+    except SQLAlchemyError as e:
+        session.rollback()
+        print("SQLAlchemy 에러 발생:", str(e))
+        return None
+    return event
