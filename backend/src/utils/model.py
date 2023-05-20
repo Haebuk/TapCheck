@@ -13,7 +13,6 @@ class Event(BaseModel):
     created_user_id: int
     title: str
     opening_time: str
-    addr: str
     thumbnail: str | None = None
     location: str | None = None
     is_special: bool = False
