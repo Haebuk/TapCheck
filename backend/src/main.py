@@ -129,7 +129,12 @@ async def refresh_event(event_id: int):
             detail="Generate QR failed",
         )
 
-    return {"StatusCode": 201, "message": "Event refreshed"}
+    return {
+        "StatusCode": 201,
+        "message": "Event refreshed",
+        "event_id": event_id,
+        "code": new_code,
+    }
 
 
 # like an event
