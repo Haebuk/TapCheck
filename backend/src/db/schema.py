@@ -1,5 +1,4 @@
 from sqlalchemy import (
-    # create_engine,
     Column,
     Integer,
     String,
@@ -11,10 +10,6 @@ from sqlalchemy import (
 from sqlalchemy.orm import relationship
 from sqlalchemy.ext.declarative import declarative_base
 
-# SQLAlchemy 엔진 생성
-# engine = create_engine("mysql://username:password@localhost/db_name")
-# Session = sessionmaker(bind=engine)
-# session = Session()
 Base = declarative_base()
 
 

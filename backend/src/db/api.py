@@ -1,7 +1,9 @@
+from datetime import datetime
 import os
 
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
+from sqlalchemy.exc import SQLAlchemyError
 
 from src.db import schema
 
@@ -16,24 +18,46 @@ session = Session()
 
 
 # insert user to users
-def insert_user(wallet):
+def insert_user(wallet: str):
     user = schema.User(wallet=wallet)
     session.add(user)
     session.commit()
     return user
 
 
-# delete user from users
-def delete_user(user_id):
+# read user from users
+def read_user(user_id: int):
     user = session.query(schema.User).filter(schema.User.id == user_id).first()
-    session.delete(user)
-    session.commit()
     return user
+
+
+def delete_user(user_id: int):
+    try:
+        user = session.query(schema.User).filter(schema.User.id == user_id).first()
+        if user:
+            session.delete(user)
+            session.commit()
+            return user
+        else:
+            return None
+    except SQLAlchemyError as e:
+        # SQLAlchemyError 예외 처리
+        session.rollback()  # 롤백 수행
+        print("SQLAlchemy 에러 발생:", str(e))
+        # 추가적인 에러 처리 로직 수행
+
+    return None
 
 
 # create an event
 def create_event(
-    created_user_id, title, thumbnail, location, opening_time, is_special, description
+    created_user_id: id,
+    title: str,
+    thumbnail: str,
+    location: str,
+    opening_time: datetime,
+    is_special: bool,
+    description: str,
 ):
     event = schema.Event(
         created_user_id=created_user_id,

@@ -4,21 +4,21 @@ from pydantic import BaseModel
 
 
 class User(BaseModel):
-    id: int
+    # id: int
     wallet: str
-    create_at: datetime
+    # create_at: datetime
 
 
 class Event(BaseModel):
     id: int
     created_user_id: int
     title: str
-    thumbnail: str
-    location: str
+    created_at: datetime
+    thumbnail: str | None = None
+    location: str | None = None
     opening_time: datetime
-    is_special: bool
-    description: str
-    created_user: User
+    is_special: bool = False
+    description: str | None = None
 
 
 class Favorite(BaseModel):
@@ -26,8 +26,6 @@ class Favorite(BaseModel):
     user_id: int
     event_id: int
     create_at: datetime
-    user: User
-    event: Event
 
 
 class UserParticipation(BaseModel):
@@ -35,8 +33,6 @@ class UserParticipation(BaseModel):
     user_id: int
     event_id: int
     create_at: datetime
-    user: User
-    event: Event
 
 
 class PreRegistration(BaseModel):
@@ -44,5 +40,3 @@ class PreRegistration(BaseModel):
     user_id: int
     event_id: int
     create_at: datetime
-    user: User
-    event: Event

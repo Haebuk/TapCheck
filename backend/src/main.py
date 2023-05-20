@@ -12,6 +12,47 @@ async def root():
     return {"message": "Hello World"}
 
 
+# get user
+@app.get("/user/{user_id}", status_code=status.HTTP_200_OK)
+async def read_user(user_id: int):
+    user = api.read_user(user_id)
+
+    if not user:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND, detail="User not found"
+        )
+
+    return {"user": user}
+
+
+# create user
+@app.post("/user")
+async def create_user(user: User):
+    res = api.insert_user(user.wallet)
+
+    if not res:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="User not created",
+        )
+
+    return {"StatusCode": 201, "message": "User created"}
+
+
+# delete user
+@app.delete("/user/{user_id}")
+async def delete_user(user_id: int):
+    res = api.delete_user(user_id)
+
+    if not res:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="User not deleted",
+        )
+
+    return {"StatusCode": 201, "message": "User deleted"}
+
+
 # get event details
 @app.get("/event/{event_id}", status_code=status.HTTP_200_OK)
 async def read_event(event_id: int):
@@ -19,7 +60,8 @@ async def read_event(event_id: int):
 
     if not event:
         raise HTTPException(
-            status_code=status.HTTP_404_NOT_FOUND, detail="Event not found"
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Event not found",
         )
 
     return {"event": event}
@@ -27,7 +69,23 @@ async def read_event(event_id: int):
 
 # create an event
 @app.post("/event")
-async def create_event():
+async def create_event(event: Event):
+    res = api.create_event(
+        event.created_user_id,
+        event.title,
+        event.thumbnail,
+        event.location,
+        event.opening_time,
+        event.is_special,
+        event.description,
+    )
+
+    if not res:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="Event not created",
+        )
+
     return {"StatusCode": 201, "message": "Event created"}
 
 
