@@ -8,10 +8,10 @@ import { Header } from "./components/Header";
 import { QRPage } from "./pages/QRPage";
 import { CreateEventPage } from "./pages/CreateEventPage";
 import { SignPage } from "./pages/SignPage";
+import { useRef } from "react";
 
 function App() {
   const location = useLocation();
-
   // console.log(location);
 
   return (

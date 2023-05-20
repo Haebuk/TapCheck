@@ -1,14 +1,33 @@
 import styled from "styled-components";
 import { ConnectButton, darkTheme } from "@rainbow-me/rainbowkit";
 import "@rainbow-me/rainbowkit/styles.css";
+import { useRef } from "react";
 
 export const Header = () => {
   return (
     <HeaderStyle>
       <div className="button-wrapper">
-        <button>HOME</button>
-        <button>ABOUT US</button>
-        <button>SERVICE</button>
+        <button
+          onClick={() => {
+            window.scrollTo(0, 0);
+          }}
+        >
+          HOME
+        </button>
+        <button
+          onClick={() => {
+            window.scrollTo(0, 900);
+          }}
+        >
+          SERVICE
+        </button>
+        <button
+          onClick={() => {
+            window.scrollTo(0, 1750);
+          }}
+        >
+          ABOUT US
+        </button>
       </div>
       <ConnectButton className="connect-button" />
     </HeaderStyle>
@@ -16,7 +35,7 @@ export const Header = () => {
 };
 
 const HeaderStyle = styled.div`
-  position: absolute;
+  position: fixed;
   top: 0;
   height: 7rem;
   width: 100vw;
@@ -25,11 +44,15 @@ const HeaderStyle = styled.div`
   align-items: center;
   z-index: 100;
   padding: 0 3rem 0 3rem;
+  /* background-color: rgba(0, 0, 0, 0.5); */
+  /* filter: blur(3px); */
   .button-wrapper {
     height: 100%;
     display: flex;
     justify-content: flex-start;
     align-items: center;
+  }
+  .connect-button {
   }
   button {
     cursor: pointer;

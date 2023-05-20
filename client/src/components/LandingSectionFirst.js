@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import building from "../images/building.png";
 import { ReactComponent as Logo } from "../images/logo.svg";
-import logo from "../images/logo.png";
+import logo from "../images/TAPCHECK-LOGO.png";
 import moon from "../images/moon.png";
 
 export const LandingSectionFirst = () => {
