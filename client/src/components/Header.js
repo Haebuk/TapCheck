@@ -29,7 +29,7 @@ export const Header = () => {
           ABOUT US
         </button>
       </div>
-      <ConnectButton className="connect-button" />
+      <ConnectButton className="connect-button" showBalance={false} chainStatus="none" />
     </HeaderStyle>
   );
 };
