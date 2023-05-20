@@ -9,12 +9,9 @@ import { Header } from "./components/Header";
 function App() {
   return (
     <div className="App">
-      {/* <ConnectButton /> */}
       <Header />
       <Routes>
         <Route path="/" element={<LandingPage />} />
-        {/* <Route/>
-        <Route/> */}
       </Routes>
       <Toaster />
     </div>

@@ -24,7 +24,7 @@ const SectionFirstStyle = styled.div`
     left: 10%;
     transform: translateX(-50%);
     width: 60%;
-    opacity: 50%;
+    opacity: 0.5;
     background-blend-mode: saturation;
     filter: blur(3px);
     z-index: 1;
@@ -35,7 +35,7 @@ const SectionFirstStyle = styled.div`
     bottom: -7rem;
     left: 50%;
     transform: translateX(-50%);
-    opacity: 60%;
+    opacity: 0.6;
     z-index: 1;
   }
   .logo {
