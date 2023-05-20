@@ -108,16 +108,20 @@ const SectionThirdStyle = styled.div`
   }
   .section-3 {
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-end;
     align-items: center;
     /* margin-bottom: 7rem; */
     max-width: 1400px;
+    position: relative;
     .section3-text {
-      width: 30%;
-      margin: 0 0 30rem 5rem;
+      position: absolute;
+      left: 0;
+      width: 50%;
+      margin: 0 0rem 30rem -4rem;
     }
     .section3-image {
       width: 70%;
+      margin-right: -5rem;
     }
   }
   .section-4 {
@@ -127,7 +131,8 @@ const SectionThirdStyle = styled.div`
       justify-content: flex-end;
     }
     .section4text1 {
-      margin: -8rem 4rem 20rem 0;
+      margin: -8rem 4rem 20rem 0rem;
+      width: 50%;
     }
     .section4text2 {
       width: 90%;
