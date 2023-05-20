@@ -1,0 +1,33 @@
+{
+  "name": "@opengsn/provider",
+  "version": "3.0.0-beta.7",
+  "license": "Apache-2.0",
+  "main": "dist/index.js",
+  "scripts": {
+    "tsc": "tsc",
+    "watch-tsc": "tsc -w --preserveWatchOutput",
+    "lint": "eslint -f unix .",
+    "lint-fix": "yarn lint --fix",
+    "rm-dist": "rm -rf tsconfig.tsbuildinfo dist"
+  },
+  "files": [
+    "dist/*",
+    "README.md"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "dependencies": {
+    "@ethereumjs/tx": "^3.2.0",
+    "@ethersproject/abi": "^5.7.0",
+    "@ethersproject/abstract-signer": "^5.7.0",
+    "@ethersproject/bignumber": "^5.7.0",
+    "@ethersproject/providers": "^5.7.2",
+    "@metamask/eth-sig-util": "^4.0.1",
+    "@opengsn/common": "^3.0.0-beta.7",
+    "abi-decoder": "^2.4.0",
+    "ethereumjs-util": "^7.1.0",
+    "ethereumjs-wallet": "^1.0.2",
+    "ethers": "^5.7.2"
+  }
+}
