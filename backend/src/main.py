@@ -2,6 +2,7 @@ from fastapi import FastAPI, status, HTTPException
 
 from src.model import User, Event, Favorite, UserParticipation, PreRegistration
 from src.db import api
+from src.utils import utils
 
 app = FastAPI()
 
@@ -19,7 +20,8 @@ async def read_user(user_id: int):
 
     if not user:
         raise HTTPException(
-            status_code=status.HTTP_404_NOT_FOUND, detail="User not found"
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="User not found",
         )
 
     return {"user": user}
@@ -70,15 +72,10 @@ async def read_event(event_id: int):
 # create an event
 @app.post("/event")
 async def create_event(event: Event):
-    res = api.create_event(
-        event.created_user_id,
-        event.title,
-        event.thumbnail,
-        event.location,
-        event.opening_time,
-        event.is_special,
-        event.description,
-    )
+    code = utils.generate_random_string()
+    event.code = code
+
+    res = api.create_event(event)
 
     if not res:
         raise HTTPException(
@@ -106,5 +103,6 @@ async def like_event(event_id: int):
 # get events list
 @app.get("/events")
 async def read_events():
-    # read event from db order by created_at desc
-    return {"events": []}
+    # get events list
+    events = api.get_events()
+    return {"events": events}

@@ -29,9 +29,7 @@ QRcode.make()
 QRcolor = "Blue"
 
 # adding color to QR code
-QRimg = QRcode.make_image(fill_color=QRcolor, back_color="white").convert(
-    "RGB"
-)
+QRimg = QRcode.make_image(fill_color=QRcolor, back_color="white").convert("RGB")
 
 # set size of QR code
 pos = (
@@ -44,3 +42,13 @@ QRimg.paste(logo, pos)
 QRimg.save("jointX_QR.png")
 
 print("QR code generated!")
+
+
+def generate_qr(event_id: int, code: str):
+    QRcode = qrcode.QRCode(error_correction=qrcode.constants.ERROR_CORRECT_H)
+    url = f"https://glitch-hack.com/event/{event_id}/checkin/{code}"
+    QRcode.add_data(url)
+    QRcode.make()
+    QRimg = QRcode.make_image(fill_color="black", back_color="white").convert("RGB")
+    QRimg.save(f"backend/src/static/qr/{event_id}_{code}.png")
+    return f"backend/src/static/qr/{event_id}_{code}.png"

@@ -19,6 +19,7 @@ class Event(BaseModel):
     opening_time: datetime
     is_special: bool = False
     description: str | None = None
+    code: str | None = None
 
 
 class Favorite(BaseModel):

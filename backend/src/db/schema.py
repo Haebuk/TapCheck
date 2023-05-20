@@ -32,6 +32,7 @@ class Event(Base):
     is_special = Column(Boolean)
     description = Column(Text)
     created_at = Column(TIMESTAMP, server_default="CURRENT_TIMESTAMP")
+    code = Column(String(100))
     created_user = relationship("User", backref="events")
 
 

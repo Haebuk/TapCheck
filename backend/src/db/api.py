@@ -6,6 +6,7 @@ from sqlalchemy.orm import sessionmaker
 from sqlalchemy.exc import SQLAlchemyError
 
 from src.db import schema
+from src.utils.model import User, Event
 
 DB_USER = os.getenv("DB_USER")
 DB_PASSWORD = os.getenv("DB_PASSWORD")
@@ -50,23 +51,16 @@ def delete_user(user_id: int):
 
 
 # create an event
-def create_event(
-    created_user_id: id,
-    title: str,
-    thumbnail: str,
-    location: str,
-    opening_time: datetime,
-    is_special: bool,
-    description: str,
-):
+def create_event(event: Event):
     event = schema.Event(
-        created_user_id=created_user_id,
-        title=title,
-        thumbnail=thumbnail,
-        location=location,
-        opening_time=opening_time,
-        is_special=is_special,
-        description=description,
+        created_user_id=event.created_user_id,
+        title=event.title,
+        thumbnail=event.thumbnail,
+        location=event.location,
+        opening_time=event.opening_time,
+        is_special=event.is_special,
+        description=event.description,
+        code=event.code,
     )
     session.add(event)
     session.commit()
@@ -77,3 +71,9 @@ def create_event(
 def get_event(event_id):
     event = session.query(schema.Event).filter(schema.Event.id == event_id).first()
     return event
+
+
+# get events
+def get_events():
+    events = session.query(schema.Event).all()
+    return events
