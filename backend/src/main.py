@@ -1,8 +1,8 @@
 from fastapi import FastAPI, status, HTTPException
 
-from src.model import User, Event, Favorite, UserParticipation, PreRegistration
 from src.db import api
-from src.utils import utils
+from src.utils import utils, qr
+from src.utils.model import User, Event, Favorite, UserParticipation, PreRegistration
 
 app = FastAPI()
 
@@ -76,8 +76,15 @@ async def create_event(event: Event):
     event.code = code
 
     res = api.create_event(event)
-
     if not res:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="Event not created",
+        )
+
+    qr_url = qr.generate_qr(event_id=res.id, code=res.code)
+
+    if not qr_url:
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
             detail="Event not created",

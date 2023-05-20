@@ -10,13 +10,11 @@ class User(BaseModel):
 
 
 class Event(BaseModel):
-    id: int
     created_user_id: int
     title: str
-    created_at: datetime
+    opening_time: str
     thumbnail: str | None = None
     location: str | None = None
-    opening_time: datetime
     is_special: bool = False
     description: str | None = None
     code: str | None = None
@@ -41,3 +39,4 @@ class PreRegistration(BaseModel):
     user_id: int
     event_id: int
     create_at: datetime
+

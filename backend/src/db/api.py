@@ -62,8 +62,13 @@ def create_event(event: Event):
         description=event.description,
         code=event.code,
     )
-    session.add(event)
-    session.commit()
+    try:
+        session.add(event)
+        session.commit()
+    except SQLAlchemyError as e:
+        session.rollback()
+        print("SQLAlchemy 에러 발생:", str(e))
+        return None
     return event
 
 
