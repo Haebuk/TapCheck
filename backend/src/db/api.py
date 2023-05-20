@@ -32,6 +32,13 @@ def read_user(user_id: int):
     return user
 
 
+# read user list from users
+def read_user_list():
+    users = session.query(schema.User).all()
+    print(users)
+    return users
+
+
 def delete_user(user_id: int):
     try:
         user = session.query(schema.User).filter(schema.User.id == user_id).first()

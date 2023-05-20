@@ -14,20 +14,6 @@ async def root():
     return {"message": "Hello World"}
 
 
-# get user
-@app.get("/user/{user_id}", status_code=status.HTTP_200_OK)
-async def read_user(user_id: int):
-    user = api.read_user(user_id)
-
-    if not user:
-        raise HTTPException(
-            status_code=status.HTTP_404_NOT_FOUND,
-            detail="User not found",
-        )
-
-    return {"user": user}
-
-
 # create user
 @app.post("/user")
 async def create_user(user: User):
@@ -40,6 +26,20 @@ async def create_user(user: User):
         )
 
     return {"StatusCode": 201, "message": "User created"}
+
+
+# get user
+@app.get("/user/{user_id}", status_code=status.HTTP_200_OK)
+async def read_user(user_id: int):
+    user = api.read_user(user_id)
+
+    if not user:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="User not found",
+        )
+
+    return {"user": user}
 
 
 # delete user
@@ -56,18 +56,18 @@ async def delete_user(user_id: int):
     return {"StatusCode": 201, "message": "User deleted"}
 
 
-# get event details
-@app.get("/event/{event_id}", status_code=status.HTTP_200_OK)
-async def read_event(event_id: int):
-    event = api.get_event(event_id)
+# get user list
+@app.get("/user/list", status_code=status.HTTP_200_OK)
+async def read_user_list():
+    users = api.read_user_list()
 
-    if not event:
+    if not users:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
-            detail="Event not found",
+            detail="User not found",
         )
 
-    return {"event": event}
+    return {"users": users}
 
 
 # create an event
@@ -94,19 +94,41 @@ async def create_event(event: Event):
     return {"StatusCode": 201, "message": "Event created"}
 
 
-@app.post("/event/{event_id}/checkin/{code}")
-async def checkin_event(event_id: int, code: str, user: User):
-    current_event_code = api.get_event(event_id).code
-    if current_event_code != code:
+# get event details
+@app.get("/event/{event_id}", status_code=status.HTTP_200_OK)
+async def read_event(event_id: int):
+    event = api.get_event(event_id)
+
+    if not event:
         raise HTTPException(
-            status_code=status.HTTP_400_BAD_REQUEST,
-            detail="Invalid code",
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Event not found",
         )
 
-    user_wallet_address = user.wallet
-    # checkin event
-    res = checkin(user_wallet_address, event_id)
-    return res
+    return {"event": event}
+
+
+# get latest event QR code
+@app.get("/event/{event_id}/latest")
+async def get_latest_qr_code_url(event_id: int):
+    event = api.get_event(event_id)
+
+    if not event:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Event not found",
+        )
+
+    return f"https://tapcheck-bucket.s3.ap-northeast-2.amazonaws.com/qr/{event_id}/{event.code}.png"
+
+
+# 이벤트의 현재 난수코드와 QR코드내 난수코드가 일치하는지 확인
+@app.get("/event/{event_id}/match/{code}")
+async def check_event_code_match(event_id, code):
+    latest_event_code = api.get_event(event_id).code
+    if latest_event_code == code:
+        return True
+    return False
 
 
 # refresh an event
@@ -137,16 +159,31 @@ async def refresh_event(event_id: int):
     }
 
 
+@app.post("/event/{event_id}/checkin/{code}")
+async def checkin_event(event_id: int, code: str, user: User):
+    current_event_code = api.get_event(event_id).code
+    if current_event_code != code:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="Invalid code",
+        )
+
+    user_wallet_address = user.wallet
+    # checkin event
+    res = checkin(user_wallet_address, event_id)
+    return res
+
+
+# get events list
+@app.get("/event/list")
+async def get_event_list():
+    # get events list
+    events = api.get_events()
+    return {"events": events}
+
+
 # like an event
 @app.post("/like/{event_id}")
 async def like_event(event_id: int):
     # create like event
     return {"StatusCode": 201, "message": "Event liked"}
-
-
-# get events list
-@app.get("/events")
-async def read_events():
-    # get events list
-    events = api.get_events()
-    return {"events": events}
